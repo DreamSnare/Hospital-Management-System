@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System - Patient Registration</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 30px 15px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: #0d6efd;
+            color: #ffffff;
+            padding: 22px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            font-size: 22px;
+        }
+        .header a {
+            background: #ffffff;
+            color: #0d6efd;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .header a:hover {
+            background: #e2e6ea;
+        }
+        form {
+            padding: 30px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #495057;
+        }
+        input, select, textarea {
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #0d6efd;
+            outline: none;
+        }
+        .gender-options {
+            display: flex;
+            gap: 20px;
+            padding-top: 8px;
+        }
+        .gender-options label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .btn-group {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+        }
+        .btn-submit {
+            background: #0d6efd;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-submit:hover {
+            background: #0b5ed7;
+        }
+        .btn-reset {
+            background: #6c757d;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-reset:hover {
+            background: #5c636a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Hospital Patient Registration</h1>
+        <a href="DisplayServlet">View All Patients</a>
+    </div>
+
+    <form action="RegisterServlet" method="post">
+        <div class="form-grid">
+            <!-- 1. Patient Id -->
+            <div class="form-group">
+                <label for="patientId">Patient ID *</label>
+                <input type="number" id="patientId" name="patientId" min="1" max="99999" required placeholder="e.g., 101">
+            </div>
+
+            <!-- 2. Patient Name -->
+            <div class="form-group">
+                <label for="patientName">Patient Name *</label>
+                <input type="text" id="patientName" name="patientName" maxlength="100" required placeholder="Full Name">
+            </div>
+
+            <!-- 3. Email Address -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" maxlength="100" placeholder="patient@example.com">
+            </div>
+
+            <!-- 4. Phone Number -->
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" maxlength="15" required placeholder="e.g., 9876543210">
+            </div>
+
+            <!-- 5. Gender -->
+            <div class="form-group">
+                <label>Gender *</label>
+                <div class="gender-options">
+                    <label><input type="radio" name="gender" value="Male" required> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                    <label><input type="radio" name="gender" value="Other"> Other</label>
+                </div>
+            </div>
+
+            <!-- 6. Date of Birth -->
+            <div class="form-group">
+                <label for="dob">Date of Birth *</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+
+            <!-- 7. Blood Group -->
+            <div class="form-group">
+                <label for="bloodGroup">Blood Group *</label>
+                <select id="bloodGroup" name="bloodGroup" required>
+                    <option value="">-- Select Blood Group --</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+
+            <!-- 9. Disease/Health Problem -->
+            <div class="form-group">
+                <label for="disease">Disease / Health Problem *</label>
+                <input type="text" id="disease" name="disease" maxlength="150" required placeholder="Primary diagnosis or symptom">
+            </div>
+
+            <!-- 8. Address -->
+            <div class="form-group full-width">
+                <label for="address">Address *</label>
+                <textarea id="address" name="address" rows="2" maxlength="200" required placeholder="Full residential address"></textarea>
+            </div>
+
+            <!-- 10. Doctor Name -->
+            <div class="form-group">
+                <label for="doctorName">Doctor Name *</label>
+                <input type="text" id="doctorName" name="doctorName" maxlength="100" required placeholder="e.g., Dr. S. K. Dash">
+            </div>
+
+            <!-- 11. Department -->
+            <div class="form-group">
+                <label for="department">Department *</label>
+                <select id="department" name="department" required>
+                    <option value="">-- Select Department --</option>
+                    <option value="General Medicine">General Medicine</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="ENT">ENT</option>
+                </select>
+            </div>
+
+            <!-- 12. Admission Date -->
+            <div class="form-group">
+                <label for="admissionDate">Admission Date *</label>
+                <input type="date" id="admissionDate" name="admissionDate" required>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="submit" class="btn-submit">Register Patient</button>
+            <button type="reset" class="btn-reset">Clear Form</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
